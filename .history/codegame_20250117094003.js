@@ -110,7 +110,7 @@ const askQuestion = (q) => {
     });
 
     // Set up the input prompt
-    process.stdout.write(`Time remaining: ${remainingTime}s | Your answer (1-4): `); //improved input field UI
+    process.stdout.write(`Time remaining: ${remainingTime}s | Your answer (1-4): `); //improved in
 
     // Countdown timer for the current question
     questionTimer = setInterval(() => {

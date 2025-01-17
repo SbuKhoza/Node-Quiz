@@ -98,6 +98,7 @@ const rl = readline.createInterface({
 });
 
 
+
 const askQuestion = (q) => {
   return new Promise((resolve) => {
     let remainingTime = questionTimeLimit;
@@ -110,7 +111,7 @@ const askQuestion = (q) => {
     });
 
     // Set up the input prompt
-    process.stdout.write(`Time remaining: ${remainingTime}s | Your answer (1-4): `); //improved input field UI
+    process.stdout.write(`Time remaining: ${remainingTime}s | Your answer (1-4): `);
 
     // Countdown timer for the current question
     questionTimer = setInterval(() => {

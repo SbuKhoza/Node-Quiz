@@ -97,50 +97,49 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+// Function to ask a question asynchronously
+// const askQuestion = (q) => {
+//   return new Promise((resolve) => {
+//     let remainingTime = questionTimeLimit;
 
-const askQuestion = (q) => {
-  return new Promise((resolve) => {
-    let remainingTime = questionTimeLimit;
+//     // Display the question and options
+//     console.log(`\nTopic: ${q.topic}`);
+//     console.log(q.question);
+//     q.options.forEach((option, index) => {
+//       console.log(`${index + 1}. ${option}`);
+//     });
 
-    // Display the question and options
-    console.log(`\nTopic: ${q.topic}`);
-    console.log(q.question);
-    q.options.forEach((option, index) => {
-      console.log(`${index + 1}. ${option}`);
-    });
+//     // Initial display of the countdown timer
+//     process.stdout.write(`Time remaining: ${remainingTime}s\r`);
 
-    // Set up the input prompt
-    process.stdout.write(`Time remaining: ${remainingTime}s | Your answer (1-4): `); //improved input field UI
+//     // Countdown timer for the current question
+//     questionTimer = setInterval(() => {
+//       remainingTime--;
 
-    // Countdown timer for the current question
-    questionTimer = setInterval(() => {
-      remainingTime--;
-      
-      // Clear the current line and rewrite it
-      process.stdout.clearLine(0);
-      process.stdout.cursorTo(0);
-      process.stdout.write(`Time remaining: ${remainingTime}s | Your answer (1-4): `);
+//       // Update the timer on the same line
+//       process.stdout.write(`Time remaining: ${remainingTime}s\r`);
 
-      if (remainingTime <= 0) {
-        clearInterval(questionTimer);
-        console.log('\n'); // Move to a new line after countdown finishes
-        resolve(null); // Time ran out
-      }
-    }, 1000);
+//       if (remainingTime <= 0) {
+//         clearInterval(questionTimer);
+//         process.stdout.write('\n'); // Move to a new line after countdown finishes
+//         resolve(null); // Time ran out
+//       }
+//     }, 1000);
 
-    // Get the answer from the user
-    rl.once('line', (answer) => {
-      clearInterval(questionTimer);
-      const answerIndex = parseInt(answer) - 1;
-      if (!isNaN(answerIndex) && answerIndex >= 0 && answerIndex < q.options.length) {
-        resolve(q.options[answerIndex]);
-      } else {
-        console.log('Invalid input. Moving to the next question.');
-        resolve(null);
-      }
-    });
-  });
-};
+//     // Asynchronously get the answer from the user
+//     rl.question('Select your answer (1-4): ', (answer) => {
+//       clearInterval(questionTimer); // Clear question timer
+//       process.stdout.write('\n'); // Move to a new line after the user input
+//       const answerIndex = parseInt(answer) - 1;
+//       if (!isNaN(answerIndex) && answerIndex >= 0 && answerIndex < q.options.length) {
+//         resolve(q.options[answerIndex]); // Return the selected answer
+//       } else {
+//         console.log('Invalid input. Moving to the next question.');
+//         resolve(null); // Invalid input, treat as no answer
+//       }
+//     });
+//   });
+// };
 
 // starts the quiz
 const startQuiz = async () => {

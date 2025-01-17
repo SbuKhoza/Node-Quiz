@@ -97,6 +97,49 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+// Function to ask a question asynchronously
+// const askQuestion = (q) => {
+//   return new Promise((resolve) => {
+//     let remainingTime = questionTimeLimit;
+
+//     // Display the question and options
+//     console.log(`\nTopic: ${q.topic}`);
+//     console.log(q.question);
+//     q.options.forEach((option, index) => {
+//       console.log(`${index + 1}. ${option}`);
+//     });
+
+//     // Initial display of the countdown timer
+//     process.stdout.write(`Time remaining: ${remainingTime}s\r`);
+
+//     // Countdown timer for the current question
+//     questionTimer = setInterval(() => {
+//       remainingTime--;
+
+//       // Update the timer on the same line
+//       process.stdout.write(`Time remaining: ${remainingTime}s\r`);
+
+//       if (remainingTime <= 0) {
+//         clearInterval(questionTimer);
+//         process.stdout.write('\n'); // Move to a new line after countdown finishes
+//         resolve(null); // Time ran out
+//       }
+//     }, 1000);
+
+//     // Asynchronously get the answer from the user
+//     rl.question('Select your answer (1-4): ', (answer) => {
+//       clearInterval(questionTimer); // Clear question timer
+//       process.stdout.write('\n'); // Move to a new line after the user input
+//       const answerIndex = parseInt(answer) - 1;
+//       if (!isNaN(answerIndex) && answerIndex >= 0 && answerIndex < q.options.length) {
+//         resolve(q.options[answerIndex]); // Return the selected answer
+//       } else {
+//         console.log('Invalid input. Moving to the next question.');
+//         resolve(null); // Invalid input, treat as no answer
+//       }
+//     });
+//   });
+// };
 
 const askQuestion = (q) => {
   return new Promise((resolve) => {
@@ -110,7 +153,7 @@ const askQuestion = (q) => {
     });
 
     // Set up the input prompt
-    process.stdout.write(`Time remaining: ${remainingTime}s | Your answer (1-4): `); //improved input field UI
+    process.stdout.write(`Time remaining: ${remainingTime}s | Your answer (1-4): `);
 
     // Countdown timer for the current question
     questionTimer = setInterval(() => {

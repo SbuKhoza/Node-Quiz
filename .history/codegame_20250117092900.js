@@ -97,7 +97,7 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-
+// Function to ask a question asynchronously
 const askQuestion = (q) => {
   return new Promise((resolve) => {
     let remainingTime = questionTimeLimit;
@@ -109,34 +109,33 @@ const askQuestion = (q) => {
       console.log(`${index + 1}. ${option}`);
     });
 
-    // Set up the input prompt
-    process.stdout.write(`Time remaining: ${remainingTime}s | Your answer (1-4): `); //improved input field UI
+    // Initial display of the countdown timer
+    process.stdout.write(`Time remaining: ${remainingTime}s\r`);
 
     // Countdown timer for the current question
     questionTimer = setInterval(() => {
       remainingTime--;
-      
-      // Clear the current line and rewrite it
-      process.stdout.clearLine(0);
-      process.stdout.cursorTo(0);
-      process.stdout.write(`Time remaining: ${remainingTime}s | Your answer (1-4): `);
+
+      // Update the timer on the same line
+      process.stdout.write(`Time remaining: ${remainingTime}s\r`);
 
       if (remainingTime <= 0) {
         clearInterval(questionTimer);
-        console.log('\n'); // Move to a new line after countdown finishes
+        process.stdout.write('\n'); // Move to a new line after countdown finishes
         resolve(null); // Time ran out
       }
     }, 1000);
 
-    // Get the answer from the user
-    rl.once('line', (answer) => {
-      clearInterval(questionTimer);
+    // Asynchronously get the answer from the user
+    rl.question('Select your answer (1-4): ', (answer) => {
+      clearInterval(questionTimer); // Clear question timer
+      process.stdout.write('\n'); // Move to a new line after the user input
       const answerIndex = parseInt(answer) - 1;
       if (!isNaN(answerIndex) && answerIndex >= 0 && answerIndex < q.options.length) {
-        resolve(q.options[answerIndex]);
+        resolve(q.options[answerIndex]); // Return the selected answer
       } else {
         console.log('Invalid input. Moving to the next question.');
-        resolve(null);
+        resolve(null); // Invalid input, treat as no answer
       }
     });
   });
@@ -176,3 +175,6 @@ rl.question('Please enter your name: ', (name) => {
   playerName = name.trim();
   startQuiz();
 });
+
+
+
